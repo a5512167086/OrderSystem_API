@@ -36,4 +36,26 @@ class UserService
 
         $user->save();
     }
+
+    public function checkExisted(string $account)
+    {
+        $user = User::where('account', '=', $account)->first();
+
+        if ($user != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function loginUser(string $account, string $password)
+    {
+        $user = User::where([['account', '=', $account], ['password', '=', $password]])->first();
+
+        if ($user != null) {
+            return ['isSuccess' => true, 'user_info' => $user];
+        } else {
+            return ['isSuccess' => false];
+        }
+    }
 }

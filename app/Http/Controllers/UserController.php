@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -41,6 +40,25 @@ class UserController extends Controller
         } else {
             $this->user_service->createUser($input);
             return ['resultCode' => 200, 'message' => 'Insert User Success'];
+        }
+    }
+
+    public function loginUser(Request $request)
+    {
+        $account = $request->input()['account'];
+        $password = $request->input()['password'];
+        $isExisted = $this->user_service->checkExisted($account);
+
+        if ($isExisted) {
+            $loginUser = $this->user_service->loginUser($account, $password);
+
+            if ($loginUser['isSuccess']) {
+                return ['resultCode' => 200, 'message' => 'Login Success', 'user_info' => $loginUser['user_info']];
+            } else {
+                return ['resultCode' => 400, 'message' => 'Password Not Correct'];
+            }
+        } else {
+            return ['resultCode' => 400, 'message' => 'User Not Existed'];
         }
     }
 }
