@@ -16,8 +16,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('/getUsers', [UserController::class, 'getUsers']);
-
-    Route::post('/createUser', [UserController::class, 'createUser']);
-    Route::post('/loginUser', [UserController::class, 'loginUser']);
+    Route::get('/get/users', [UserController::class, 'getUsers']);
+    Route::post('/create/user', [UserController::class, 'createUser']);
+    Route::post('/login/user', [UserController::class, 'loginUser']);
 });
