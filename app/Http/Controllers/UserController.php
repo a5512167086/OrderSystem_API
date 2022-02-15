@@ -35,7 +35,7 @@ class UserController extends Controller
 
         $input = $request->input();
 
-        if ($validator->failed()) {
+        if ($validator->fails()) {
             return ['resultCode' => 400, 'message' => 'Validator Fail'];
         } else {
             $this->user_service->createUser($input);
