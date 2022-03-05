@@ -3,15 +3,17 @@
 namespace App\Services;
 
 use App\Models\Food;
+use App\Models\FoodType;
 use Illuminate\Support\Carbon;
 
 class FoodService
 {
     protected $food;
 
-    public function __construct(Food $food)
+    public function __construct(Food $food, FoodType $foodType)
     {
         $this->food = $food;
+        $this->foodType = $foodType;
     }
 
     public function getAllFoodClass()
@@ -35,5 +37,26 @@ class FoodService
         $food->updated_at = null;
 
         $food->save();
+    }
+
+    public function getAllFoodType()
+    {
+        $foodTypeList = FoodType::all();
+
+        return $foodTypeList;
+    }
+
+
+    public function createFoodType($input)
+    {
+        $now = Carbon::now()->toDateTimeString();
+
+        $foodType = new FoodType;
+
+        $foodType->name = $input['name'];
+        $foodType->created_at = $now;
+        $foodType->updated_at = null;
+
+        $foodType->save();
     }
 }

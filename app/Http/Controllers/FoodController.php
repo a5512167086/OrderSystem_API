@@ -38,8 +38,33 @@ class FoodController extends Controller
         if ($validator->fails()) {
             return ['resultCode' => 400, 'message' => 'Validator Fail'];
         } else {
-            $foodList = $this->food_service->createFoodClass($input);
+            $this->food_service->createFoodClass($input);
             return ['resultCode' => 200, 'message' => 'Insert Food Success'];
+        }
+    }
+
+    public function getAllFoodType()
+    {
+        $foodTypeList = $this->food_service->getAllFoodType();
+
+        return $foodTypeList;
+    }
+
+    public function createFoodType(Request $request)
+    {
+        $rules = [
+            'name' => 'required|string',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->food_service->createFoodType($input);
+            return ['resultCode' => 200, 'message' => 'Insert FoodType Success'];
         }
     }
 }
