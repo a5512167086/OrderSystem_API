@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\FoodService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class FoodController extends Controller
@@ -65,6 +66,42 @@ class FoodController extends Controller
         } else {
             $this->food_service->createFoodType($input);
             return ['resultCode' => 200, 'message' => 'Insert FoodType Success'];
+        }
+    }
+
+    public function deleteFoodClassById(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->food_service->deleteFoodById($input);
+            return ['resultCode' => 200, 'message' => 'Delete FoodType Success'];
+        }
+    }
+
+    public function deleteFoodTypeById(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->food_service->deleteFoodTypeById($input);
+            return ['resultCode' => 200, 'message' => 'Delete FoodType Success'];
         }
     }
 }

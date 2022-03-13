@@ -59,4 +59,18 @@ class FoodService
 
         $foodType->save();
     }
+
+    public function deleteFoodById($input)
+    {
+        $id = $input['id'];
+
+        Food::where('id', $id)->delete();
+    }
+
+    public function deleteFoodTypeById($input)
+    {
+        $id = $input['id'];
+
+        FoodType::where('id', $id)->delete();
+    }
 }

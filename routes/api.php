@@ -26,9 +26,12 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'food'], function () {
         Route::get('/get', [FoodController::class, 'getAllFoodClass']);
         Route::post('/create', [FoodController::class, 'createFoodClass']);
+        Route::delete('delete', [FoodController::class, 'deleteFoodClassById']);
+
         Route::group(['prefix' => 'type'], function () {
             Route::get('/get', [FoodController::class, 'getAllFoodType']);
             Route::post('/create', [FoodController::class, 'createFoodType']);
+            Route::delete('delete', [FoodController::class, 'deleteFoodTypeById']);
         });
     });
 });
