@@ -51,6 +51,13 @@ class FoodController extends Controller
         return $foodTypeList;
     }
 
+    public function getFoodClassById($id)
+    {
+        $food = $this->food_service->getFoodClassById($id);
+
+        return ['food' => $food];
+    }
+
     public function createFoodType(Request $request)
     {
         $rules = [
@@ -102,6 +109,27 @@ class FoodController extends Controller
         } else {
             $this->food_service->deleteFoodTypeById($input);
             return ['resultCode' => 200, 'message' => 'Delete FoodType Success'];
+        }
+    }
+
+    public function updateFoodClassById(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer',
+            'name' => 'required|string',
+            'price' => 'required|integer',
+            'type' => 'required|string',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();       
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->food_service->updateFoodClassById($input);
+            return ['resultCode' => 200, 'message' => 'Update FoodClass Success'];
         }
     }
 }

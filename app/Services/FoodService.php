@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Food;
 use App\Models\FoodType;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class FoodService
 {
@@ -21,6 +22,13 @@ class FoodService
         $foodList = Food::all();
 
         return $foodList;
+    }
+
+    public function getFoodClassById($id)
+    {
+        $food = Food::where('id', $id)->first();
+        
+        return $food;
     }
 
     public function createFoodClass($input)
@@ -45,7 +53,6 @@ class FoodService
 
         return $foodTypeList;
     }
-
 
     public function createFoodType($input)
     {
@@ -72,5 +79,18 @@ class FoodService
         $id = $input['id'];
 
         FoodType::where('id', $id)->delete();
+    }
+
+    public function updateFoodClassById($input)
+    {
+        $id = $input['id'];
+        $now = Carbon::now()->toDateTimeString();
+
+        Food::where('id', $id)->update([
+            'name' => $input['name'],
+            'price' => $input['price'],
+            'type' => $input['type'],
+            'updated_at' => $now,
+        ]);
     }
 }

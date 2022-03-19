@@ -25,8 +25,10 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'food'], function () {
         Route::get('/get', [FoodController::class, 'getAllFoodClass']);
+        Route::get('/get/{id}', [FoodController::class, 'getFoodClassById']);
         Route::post('/create', [FoodController::class, 'createFoodClass']);
         Route::delete('delete', [FoodController::class, 'deleteFoodClassById']);
+        Route::patch('/update', [FoodController::class, 'updateFoodClassById']);
 
         Route::group(['prefix' => 'type'], function () {
             Route::get('/get', [FoodController::class, 'getAllFoodType']);
