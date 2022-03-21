@@ -22,6 +22,13 @@ class UserController extends Controller
         return $userList;
     }
 
+    public function getUserById($id)
+    {
+        $user = $this->user_service->getUserById($id);
+
+        return $user;
+    }
+
     public function createUser(Request $request)
     {
         $rules = [
@@ -59,6 +66,46 @@ class UserController extends Controller
             }
         } else {
             return ['resultCode' => 400, 'message' => 'User Not Existed'];
+        }
+    }
+
+    public function deleteUserById(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->user_service->deleteUserById($input);
+            return ['resultCode' => 200, 'message' => 'Delete User Success'];
+        }
+    }
+
+    public function updateUserById(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer',
+            'account' => 'required|string',
+            'password' => 'required|string',
+            'user_name' => 'required|string',
+            'user_email' => 'required|string',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->user_service->updateUserById($input);
+            return ['resultCode' => 200, 'message' => 'Update FoodClass Success'];
         }
     }
 }

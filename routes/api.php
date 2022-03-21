@@ -19,8 +19,11 @@ use App\Http\Controllers\FoodController;
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/get', [UserController::class, 'getUsers']);
+        Route::get('/get/{id}', [UserController::class, 'getUserById']);
         Route::post('/create', [UserController::class, 'createUser']);
         Route::post('/login', [UserController::class, 'loginUser']);
+        Route::delete('/delete', [UserController::class, 'deleteUserById']);
+        Route::patch('/update', [UserController::class, 'updateUserById']);
     });
 
     Route::group(['prefix' => 'food'], function () {

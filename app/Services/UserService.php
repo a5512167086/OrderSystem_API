@@ -21,6 +21,13 @@ class UserService
         return $userList;
     }
 
+    public function getUserById($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        return $user;
+    }
+
     public function createUser($input)
     {
         $now = Carbon::now()->toDateTimeString();
@@ -57,5 +64,26 @@ class UserService
         } else {
             return ['isSuccess' => false];
         }
+    }
+
+    public function deleteUserById($input)
+    {
+        $id = $input['id'];
+
+        User::where('id', $id)->delete();
+    }
+
+    public function updateUserById($input)
+    {
+        $id = $input['id'];
+        $now = Carbon::now()->toDateTimeString();
+
+        User::where('id', $id)->update([
+            'account' => $input['account'],
+            'password' => $input['password'],
+            'user_name' => $input['user_name'],
+            'user_email' => $input['user_email'],
+            'updated_at' => $now,
+        ]);
     }
 }
