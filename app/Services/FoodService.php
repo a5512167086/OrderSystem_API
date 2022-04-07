@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class FoodService
 {
-    protected $food;
+    protected $food, $foodType;
 
     public function __construct(Food $food, FoodType $foodType)
     {
