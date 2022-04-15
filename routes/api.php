@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +39,10 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/create', [FoodController::class, 'createFoodType']);
             Route::delete('delete', [FoodController::class, 'deleteFoodTypeById']);
         });
+    });
+
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/get', [OrderController::class, 'getAllOrders']);
+        Route::post('/create', [OrderController::class, 'createNewOrder']);
     });
 });
