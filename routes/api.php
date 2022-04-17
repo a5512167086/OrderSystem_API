@@ -31,18 +31,19 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get', [FoodController::class, 'getAllFoodClass']);
         Route::get('/get/{id}', [FoodController::class, 'getFoodClassById']);
         Route::post('/create', [FoodController::class, 'createFoodClass']);
-        Route::delete('delete', [FoodController::class, 'deleteFoodClassById']);
+        Route::delete('/delete', [FoodController::class, 'deleteFoodClassById']);
         Route::patch('/update', [FoodController::class, 'updateFoodClassById']);
 
         Route::group(['prefix' => 'type'], function () {
             Route::get('/get', [FoodController::class, 'getAllFoodType']);
             Route::post('/create', [FoodController::class, 'createFoodType']);
-            Route::delete('delete', [FoodController::class, 'deleteFoodTypeById']);
+            Route::delete('/delete', [FoodController::class, 'deleteFoodTypeById']);
         });
     });
 
     Route::group(['prefix' => 'order'], function () {
         Route::get('/get', [OrderController::class, 'getAllOrders']);
         Route::post('/create', [OrderController::class, 'createNewOrder']);
+        Route::delete('/delete', [OrderController::class, 'deleteOrderById']);
     });
 });

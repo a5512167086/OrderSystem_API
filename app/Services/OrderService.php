@@ -39,9 +39,17 @@ class OrderService
         }
     }
 
-    public function getAllOrders(){
+    public function getAllOrders()
+    {
         $orderList = Order::with('OrderFoods')->get();
 
         return $orderList;
+    }
+
+    public function deleteOrderById($input)
+    {
+        $order = Order::find($input['id']);
+        $order->OrderFoods()->delete();
+        $order->delete();
     }
 }

@@ -38,9 +38,28 @@ class OrderController extends Controller
         }
     }
 
-    public function getAllOrders(){
+    public function getAllOrders()
+    {
         $orderList = $this->order_service->getAllOrders();
 
         return $orderList;
+    }
+
+    public function deleteOrderById(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->order_service->deleteOrderById($input);
+            return ['resultCode' => 200, 'message' => 'Delete Order Success'];
+        }
     }
 }
