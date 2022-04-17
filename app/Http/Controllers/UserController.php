@@ -44,10 +44,16 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             return ['resultCode' => 400, 'message' => 'Validator Fail'];
-        } else {
-            $this->user_service->createUser($input);
-            return ['resultCode' => 200, 'message' => 'Insert User Success'];
         }
+
+        $isUserExisted = $this->user_service->checkExisted($input['account']);
+
+        if ($isUserExisted) {
+            return ['resultCode' => 444, 'message' => 'User Already Existed'];
+        }
+
+        $this->user_service->createUser($input);
+        return ['resultCode' => 200, 'message' => 'Insert User Success'];
     }
 
     public function loginUser(Request $request)
