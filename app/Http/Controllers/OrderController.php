@@ -45,6 +45,24 @@ class OrderController extends Controller
         return $orderList;
     }
 
+    public function completeOrderById(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $input = $request->input();
+
+        if ($validator->fails()) {
+            return ['resultCode' => 400, 'message' => 'Validator Fail'];
+        } else {
+            $this->order_service->completeOrderById($input);
+            return ['resultCode' => 200, 'message' => 'Compelete Order Success'];
+        }
+    }
+
     public function deleteOrderById(Request $request)
     {
         $rules = [

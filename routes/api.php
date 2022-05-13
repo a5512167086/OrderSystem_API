@@ -45,5 +45,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/get', [OrderController::class, 'getAllOrders']);
         Route::post('/create', [OrderController::class, 'createNewOrder']);
         Route::delete('/delete', [OrderController::class, 'deleteOrderById']);
+        Route::patch('/complete', [OrderController::class, 'completeOrderById']);
     });
 });

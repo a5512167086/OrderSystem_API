@@ -52,4 +52,13 @@ class OrderService
         $order->OrderFoods()->delete();
         $order->delete();
     }
+
+    public function completeOrderById($input)
+    {
+        $id = $input['id'];
+
+        Order::where('id', $id)->update([
+            'status' => 'Success',
+        ]);
+    }
 }
